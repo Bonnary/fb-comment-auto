@@ -31,7 +31,7 @@ for url in urls:
     myScreenshot.save("screenshot.png")
 
     img_rgb = cv2.imread('screenshot.png')
-    template = cv2.imread('comment.png')
+    template = cv2.imread('comment_black.png')
     w, h = template.shape[:-1]
 
     res = cv2.matchTemplate(img_rgb, template, cv2.TM_CCOEFF_NORMED)
