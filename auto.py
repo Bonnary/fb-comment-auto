@@ -2,7 +2,6 @@ import cv2
 import numpy as np
 import pyautogui
 import os
-import subprocess
 import time
 from io import BytesIO
 import win32clipboard
@@ -10,7 +9,7 @@ from PIL import Image
 
 
 web_load = 5
-image_load = 20
+image_load = 10
 
 def send_to_clipboard(clip_type, data):
     win32clipboard.OpenClipboard()
@@ -22,14 +21,17 @@ def send_to_clipboard(clip_type, data):
 urls = []
 images = []
 with open("urls.txt") as lines:
-    urls.append(lines.read())
+    lines = [line.strip() for line in lines]
+    for line in lines:
+        urls.append(line)
 
 with open("images.txt") as lines:
-    images.append(lines.read())
+    lines = [line.strip() for line in lines]
+    for line in lines:
+        images.append(line.strip())
 
 for url in urls:
-    # os.system(f"chrome {url}")
-    subprocess.run(["chrome",f"{url}"])
+    os.system(f"explorer {url}")
     time.sleep(web_load)
 
     myScreenshot = pyautogui.screenshot()
@@ -60,5 +62,5 @@ for url in urls:
         pyautogui.hotkey("ctrl", "v")
         time.sleep(image_load)
         pyautogui.press("enter")
-        time.sleep(10)
+        time.sleep(5)
         pyautogui.press("enter")
